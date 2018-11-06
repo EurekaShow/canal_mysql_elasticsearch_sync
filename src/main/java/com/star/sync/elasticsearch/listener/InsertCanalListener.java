@@ -3,6 +3,7 @@ package com.star.sync.elasticsearch.listener;
 import com.alibaba.otter.canal.protocol.CanalEntry.Column;
 import com.alibaba.otter.canal.protocol.CanalEntry.RowData;
 import com.star.sync.elasticsearch.event.InsertCanalEvent;
+import com.star.sync.elasticsearch.service.ElasticsearchJestService;
 import com.star.sync.elasticsearch.service.ElasticsearchService;
 import com.star.sync.elasticsearch.service.MappingService;
 import com.star.sync.elasticsearch.util.JsonUtil;
@@ -29,7 +30,8 @@ public class InsertCanalListener extends AbstractCanalListener<InsertCanalEvent>
     private MappingService mappingService;
 
     @Resource
-    private ElasticsearchService elasticsearchService;
+    private ElasticsearchJestService elasticsearchService;
+    //private ElasticsearchService elasticsearchService;
 
     @Override
     protected void doSync(String database, String table, String index, String type, RowData rowData) {

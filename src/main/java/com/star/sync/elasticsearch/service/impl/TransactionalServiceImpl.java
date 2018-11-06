@@ -3,6 +3,7 @@ package com.star.sync.elasticsearch.service.impl;
 import com.star.sync.elasticsearch.dao.BaseDao;
 import com.star.sync.elasticsearch.model.IndexTypeModel;
 import com.star.sync.elasticsearch.model.request.SyncByTableRequest;
+import com.star.sync.elasticsearch.service.ElasticsearchJestService;
 import com.star.sync.elasticsearch.service.ElasticsearchService;
 import com.star.sync.elasticsearch.service.TransactionalService;
 import org.springframework.stereotype.Service;
@@ -28,7 +29,8 @@ public class TransactionalServiceImpl implements TransactionalService {
     private BaseDao baseDao;
 
     @Resource
-    private ElasticsearchService elasticsearchService;
+    private ElasticsearchJestService elasticsearchService;
+    //private ElasticsearchService elasticsearchService;
 
     @Transactional(readOnly = true, rollbackFor = Exception.class)
     @Override
