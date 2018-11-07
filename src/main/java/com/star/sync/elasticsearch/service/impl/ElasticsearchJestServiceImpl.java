@@ -1,6 +1,6 @@
 package com.star.sync.elasticsearch.service.impl;
 
-import com.google.gson.Gson;
+import com.google.gson.*;
 import com.star.sync.elasticsearch.service.ElasticsearchJestService;
 import com.star.sync.elasticsearch.util.JsonUtil;
 import io.searchbox.client.JestClient;
@@ -12,6 +12,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Type;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -27,9 +29,9 @@ public class ElasticsearchJestServiceImpl implements ElasticsearchJestService {
     private JestClient client;
 
     @Override
-    public JestResult insertById(String index, String type, String id, Map<String, Object> dataMap) {
+    public JestResult insertById(String index, String type, String id, Map<String, Object> dataMap)  {
 
-        String script = new Gson().toJson(dataMap);
+        String script = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").create().toJson(dataMap);
 
         Index update = new Index.Builder(script).index(index).type(type).id(id).build();
 
@@ -68,7 +70,7 @@ public class ElasticsearchJestServiceImpl implements ElasticsearchJestService {
             result = client.execute(delete);
 
         } catch (Throwable e) {
-            e.printStackTrace();
+            logger.error("elasticsearch批量插入错误, index=" + index + ", type=" + type + ", id=" + id, e);
         }
         return result;
     }

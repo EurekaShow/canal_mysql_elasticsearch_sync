@@ -35,7 +35,7 @@ public class ElasticsearchJestClient implements DisposableBean {
             JestClientFactory factory = new JestClientFactory();
             factory.setHttpClientConfig(new HttpClientConfig
                     .Builder(jestUris)
-                    .gson(new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create())
+                    //.gson(new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").create())
                     .multiThreaded(true)
                     .readTimeout(10000)
                     .build());

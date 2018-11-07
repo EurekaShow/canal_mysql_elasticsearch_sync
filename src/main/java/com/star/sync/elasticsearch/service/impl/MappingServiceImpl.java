@@ -12,6 +12,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Map;
@@ -27,7 +29,8 @@ import java.util.Optional;
 @PropertySource("classpath:mapping.properties")
 @ConfigurationProperties
 public class MappingServiceImpl implements MappingService, InitializingBean {
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    //private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private static final SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     private Map<String, String> dbEsMapping;
     private BiMap<DatabaseTableModel, IndexTypeModel> dbEsBiMapping;
@@ -74,8 +77,11 @@ public class MappingServiceImpl implements MappingService, InitializingBean {
         mysqlTypeElasticsearchTypeMapping.put("text", data -> data);
         mysqlTypeElasticsearchTypeMapping.put("blob", data -> data);
         mysqlTypeElasticsearchTypeMapping.put("int", Long::valueOf);
-        mysqlTypeElasticsearchTypeMapping.put("date", data -> LocalDateTime.parse(data, formatter));
-        mysqlTypeElasticsearchTypeMapping.put("time", data -> LocalDateTime.parse(data, formatter));
+//        mysqlTypeElasticsearchTypeMapping.put("date", data -> LocalDateTime.parse(data, formatter));
+//        mysqlTypeElasticsearchTypeMapping.put("time", data -> LocalDateTime.parse(data, formatter));
+        mysqlTypeElasticsearchTypeMapping.put("date", data -> formatter.parse(data, new ParsePosition(0)));
+        mysqlTypeElasticsearchTypeMapping.put("time", data -> formatter.parse(data,new ParsePosition(0)));
+
         mysqlTypeElasticsearchTypeMapping.put("float", Double::valueOf);
         mysqlTypeElasticsearchTypeMapping.put("double", Double::valueOf);
         mysqlTypeElasticsearchTypeMapping.put("decimal", Double::valueOf);
