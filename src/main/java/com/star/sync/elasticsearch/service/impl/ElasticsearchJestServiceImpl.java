@@ -31,6 +31,8 @@ public class ElasticsearchJestServiceImpl implements ElasticsearchJestService {
     @Override
     public JestResult insertById(String index, String type, String id, Map<String, Object> dataMap)  {
 
+        //es 中默认的时间会插入成："2018-11-29T10:36:19+0800"格式， 其中有时区。当查询时，会自动计算成格林威治时间。
+        //为了避免该问题发生，格式化掉时间格式为特定格式。
         String script = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'").create().toJson(dataMap);
 
         Index update = new Index.Builder(script).index(index).type(type).id(id).build();
