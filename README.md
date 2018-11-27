@@ -81,9 +81,7 @@ canal是阿里巴巴mysql数据库binlog的增量订阅&消费组件。[canal传
 - [HttpApi](https://github.com/starcwang/canal_mysql_elasticsearch_sync/wiki/HttpApi)
 - [QuickStart](https://github.com/starcwang/canal_mysql_elasticsearch_sync/wiki/QuickStart)
 
-## 联系方式
-如果有不合理的地方，还请不吝赐教。
-- QQ：760823254
-- 邮件：wangchao.star@gmail.com   
+## 修改
+- 修改ES Client为Jest。
  
 **支持记得star✨**
